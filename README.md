@@ -23,7 +23,11 @@
 执行 main.py 即可，依赖包括
 
 > tqdm
+>
 > override
+>
 > pytorch
+>
 > torchvision
+>
 > pandas
