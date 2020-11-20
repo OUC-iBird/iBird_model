@@ -20,14 +20,9 @@
 
 ## 使用说明
 
-执行 main.py 即可，依赖包括
+1. 读取依赖: `pip install -r requirements.txt`
+2. 前往 AI 研习社下载数据 [200种鸟类分类](https://god.yanxishe.com/4?from=god_home_list)
+3. 执行 main.py
+4. 执行 predict.py 对 AI 研习社数据进行预测
 
-> tqdm
->
-> override
->
-> pytorch
->
-> torchvision
->
-> pandas
+模型训练的数据将会被放在 result 目录的 checkpoint.pt 里，可以使用 model 的方法进行读取

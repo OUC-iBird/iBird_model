@@ -1,0 +1,15 @@
+certifi==2020.11.8
+cffi @ file:///D:/bld/cffi_1602537445122/work
+numpy @ file:///D:/bld/numpy_1604946150193/work
+olefile @ file:///home/conda/feedstock_root/build_artifacts/olefile_1602866521163/work
+overrides @ file:///home/conda/feedstock_root/build_artifacts/overrides_1592431494961/work
+pandas @ file:///D:/bld/pandas_1604166721606/work
+Pillow @ file:///D:/bld/pillow_1604748899638/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+python-dateutil==2.8.1
+pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1604321279890/work
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1590081179328/work
+torch==1.2.0
+torchvision==0.4.0
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1605543106900/work
+wincertstore==0.2
