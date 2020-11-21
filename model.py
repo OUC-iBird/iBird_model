@@ -1,7 +1,4 @@
 import torchvision.models as models
-from torch.nn import Module
-from torch.optim.optimizer import Optimizer
-from torch.utils.data import DataLoader
 from overrides import overrides
 import torch.nn as nn
 import torch
@@ -40,7 +37,10 @@ class BilinearModel(nn.Module):
 
     def save(self, path):
         # 只保存模型的实例变量
-        torch.save(self.state_dict(), path)
+        if torch.__version__ == "1.6.0":
+            torch.save(self.state_dict(), path, _use_new_zipfile_serialization=False)
+        else:
+            torch.save(self.state_dict(), path)
         print("Save OK")
 
     def load(self, path, complexity=False):

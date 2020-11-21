@@ -60,10 +60,12 @@ class CustomDataset(torch.utils.data.Dataset):
             raise Exception("cannot transform image: {}".format(img_name))
 
 
+# TODO: 将在 beta 迭代时候完善
 def show_raw_data():
     pass
 
 
+# TODO: 将在 beta 迭代时候完善
 def show_dataset():
     pass
 
@@ -106,7 +108,7 @@ if __name__ == '__main__':
         "train":
             torch.utils.data.DataLoader(
                 data_sets["train_set"],
-                batch_size=8,
+                batch_size=2,
                 shuffle=True,
                 num_workers=0
             ),
