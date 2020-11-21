@@ -20,7 +20,7 @@
 
 ## 使用说明
 
-- AI 研习社测评
+### AI 研习社测评
 
 1. 读取依赖: `pip install -r requirements.txt`
 2. 前往 AI 研习社下载数据 [200种鸟类分类](https://god.yanxishe.com/4?from=god_home_list)
@@ -31,7 +31,7 @@
 
 ps: 自己用的所以写的很烂
 
-- 后端程序执行
+### 后端程序执行
 
 ps: 要给队友用所以要好好写，这个分类翻译要整死我了
 
