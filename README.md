@@ -8,14 +8,18 @@
 
 ```
 .
-├── READ****ME.md
+├── README.md
 ├── ibird.ipynb  # 在 colab 上运行的代码
 ├── imagenet_class_index.json  # vgg16 迁移模型数据
-├── main.py
-├── model.py
-├── predict.py
-├── test_cuda.py
-└── trainer.py
+├── main.py  # 模型训练执行入口
+├── model.py  # 模型文件
+├── predict.py  # 预测 test 测试集模块
+├── test_cuda.py  # 测试 cuda 环境
+├── requirements.txt  # 项目依赖环境
+├── predict_server.py  # 在服务端运行的代码
+├── bird_classes.csv  # 编号对于鸟类的中文名
+├── classes.txt  # 编号对于的鸟类英文名
+└── trainer.py  # 训练类
 ```
 
 ## 使用说明
