@@ -1,11 +1,14 @@
+import threading
+import torch
+import pandas as pd
+import torch.nn as nn
+
 from typing import List
-from model import BilinearModel
 from torchvision import transforms
 from torchvision import get_image_backend
 from torchvision.datasets.folder import accimage_loader, pil_loader
-import pandas as pd
-import torch
-import threading
+
+from model import BilinearModel
 
 
 # 用于在服务器上运行 BCNN 模型做鸟类的预测代码
@@ -64,26 +67,37 @@ class NeuralNetwork:
         :return: 预测前五的种类和其对应的可能性
         """
         with torch.no_grad():
+            self._model = self._model.to(self.device)
             # 锁住 dropout 层等各种数据，使用训练好的值
             self._model.eval()
             try:
                 img = NeuralNetwork.default_loader(img_path)
-                img = self._trans(img)
+                img = self._trans(img).unsqueeze(0)
             except Exception:
                 print("Img in path:{0} transforms Failed!".format(img_path))
                 return []
-            self._model.to(self.device)
-            img.to(self.device)
+            img = img.to(self.device)
             outputs = self._model(img)
-            print(outputs)
-            outputs = list(outputs)
-            outputs = outputs[:5]
-            print(outputs)
+            # softmax 将结果归一化
+            outputs = nn.functional.softmax(outputs, dim=1)
+            outputs = torch.topk(outputs, 5, dim=1)
+            predict_labels = []
+            predict_reliability = []
+            for t in list(outputs.values[0]):
+                predict_reliability.append(t.item())
+            # print(list(torch.gather(outputs.values, index=torch.Tensor([0, 4]), dim=0)))
+            for t in list(outputs.indices[0]):
+                label = self.name[t.item()]
+                predict_labels.append(label)
+            out = zip(predict_labels, predict_reliability)
+            return list(out)
 
 
 if __name__ == "__main__":
-    model_path = "./AI研习社_鸟类识别比赛数据集/model.pth"
+    model_path = "./AI研习社_鸟类识别比赛数据集/model_new.pth"
     classes_path = "./bird_classes.csv"
-    img_path = "./AI研习社_鸟类识别比赛数据集/val_set/001.Black_footed_Albatross_283.jpg"
+    img_path = "./maque.jpg"
     net = NeuralNetwork(model_path, classes_path)
-    net.predicted(img_path)
+    result = net.predicted(img_path)
+    print(result)
+    print(net.predicted("./maque2.jpg"))

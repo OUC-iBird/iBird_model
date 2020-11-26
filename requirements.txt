@@ -13,3 +13,7 @@ torch==1.2.0
 torchvision==0.4.0
 tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1605543106900/work
 wincertstore==0.2
+
+pandas~=1.1.4
+overrides~=3.1.0
+tqdm~=4.52.0

@@ -47,7 +47,8 @@ class BilinearModel(nn.Module):
         # 加载模型
         if not complexity:
             # 简易保存模式
-            self.load_state_dict(torch.load(path))
+            dev = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+            self.load_state_dict(torch.load(path, map_location=dev))
             print("Load OK")
         else:
             # 复杂保存模式
