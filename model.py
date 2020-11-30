@@ -7,10 +7,10 @@ import torch
 class BilinearModel(nn.Module):
     """Load model with pretrained weights and initialise new layers."""
 
-    def __init__(self, num_classes: int = 200) -> None:
+    def __init__(self, num_classes: int = 200, pretrained=True) -> None:
         """Load pretrained model, set new layers with specified number of layers."""
         super(BilinearModel, self).__init__()
-        model: nn.Module = models.vgg16(pretrained=True)
+        model: nn.Module = models.vgg16(pretrained)
         self.features: nn.Module = nn.Sequential(*list(model.features)[:-1])
         self.classifier: nn.Module = nn.Linear(512 ** 2, num_classes)
         self.dropout: nn.Module = nn.Dropout(0.5)

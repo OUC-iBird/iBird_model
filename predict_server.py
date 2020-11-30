@@ -13,7 +13,7 @@ from model import BilinearModel
 
 # 用于在服务器上运行 BCNN 模型做鸟类的预测代码
 # 实现了一个单例模式的预测类
-
+# 对应只含参数的模型文件的读取
 
 class NeuralNetwork:
     _instance_lock = threading.Lock()
@@ -24,7 +24,7 @@ class NeuralNetwork:
         :param model_path: 训练完成的模型文件的路径
         :param classes_path: 类别文件的路径
         """
-        self._model = BilinearModel(num_classes=200)
+        self._model = BilinearModel(num_classes=200, pretrained=False)
         try:
             self._model.load(model_path, complexity=False)
         except Exception as e:
