@@ -90,3 +90,5 @@ transforms.ColorJitter(contrast=1)  # 对比度
 transforms.ColorJitter(saturation=0.5)  # 饱和度
 transforms.ColorJitter(hue=0.5)  # 色度
 ```
+
+### PCAJittering
