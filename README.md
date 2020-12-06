@@ -4,6 +4,8 @@
 
 用于实现一个 200 种类鸟类的分类，采用了 BCNN 模型。
 
+更新增加了 EfficientNet 模型
+
 ## 仓库构成
 
 ```
@@ -45,7 +47,7 @@ ps: 要给队友用所以要好好写，这个分类翻译要整死我了
 2. 在后端代码中添加初始化代码
 ```python
 # 初始化单例
-from predict_server import NeuralNetwork
+from BCNN.predict_server import NeuralNetwork
 model_path = "xxx/xxx/xxx"
 classes_path = "xxx/xxx/xxx"
 NeuralNetwork.get_instance(model_path, classes_path) # 只有第一次会初始化
@@ -54,4 +56,37 @@ NeuralNetwork.get_instance(model_path, classes_path) # 只有第一次会初始�
 net = NeuralNetwork.get_instance()  #  不再进行初始化, 可以不加参数了
 result = net.predicted("xx/xx/xx")
 # your code here
+```
+
+## 使用 trick
+
+### 数据增强
+
+说着听上去挺高级的，实现其来就是对图片的预处理，包含下面的一些方法:
+- 平移：一定尺度内平移
+- 旋转：一定角度内旋转
+- 翻转：水平或者上下翻转
+- 裁剪：在原有图像上裁剪一部分
+- 颜色变化：rgb颜色空间进行一些变换（亮度对比度等）
+- 噪声扰动：给图像加入一些人工生产的噪声
+
+```python
+from torchvision import transforms as transforms
+# 随机比例缩放
+transforms.Resize((100, 200))
+# 随机位置裁剪
+transforms.RandomCrop(100)
+# 中心裁剪
+transforms.CenterCrop(100)
+# 随机垂直水平翻转
+transforms.RandomVerticalFlip(p=1)
+transforms.RandomHorizontalFlip(p=1)   # p表示概率
+# 随机角度旋转
+transforms.RandomRotation(45)
+
+# 色度，亮度，饱和度，对比度
+transforms.ColorJitter(brightness=1)  # 亮度
+transforms.ColorJitter(contrast=1)  # 对比度
+transforms.ColorJitter(saturation=0.5)  # 饱和度
+transforms.ColorJitter(hue=0.5)  # 色度
 ```

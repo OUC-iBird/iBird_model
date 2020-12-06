@@ -8,7 +8,7 @@ from torchvision import transforms
 from torchvision import get_image_backend
 from torchvision.datasets.folder import accimage_loader, pil_loader
 
-from model import BilinearModel
+from BCNN.model import BilinearModel
 
 
 # 用于在服务器上运行 BCNN 模型做鸟类的预测代码
@@ -94,10 +94,14 @@ class NeuralNetwork:
 
 
 if __name__ == "__main__":
-    model_path = "./AI研习社_鸟类识别比赛数据集/model_new.pth"
-    classes_path = "./bird_classes.csv"
-    img_path = "./maque.jpg"
+    import time
+    model_path = "../AI研习社_鸟类识别比赛数据集/model_new.pth"
+    classes_path = "../bird_classes.csv"
+    img_path = "../maque.jpg"
     net = NeuralNetwork(model_path, classes_path)
     result = net.predicted(img_path)
     print(result)
-    print(net.predicted("./maque2.jpg"))
+    t1 = time.time()
+    print(net.predicted("./AI研习社_鸟类识别比赛数据集/bi.jpg"))
+    t2 = time.time()
+    print(t2-t1)

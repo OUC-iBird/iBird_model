@@ -3,13 +3,13 @@ import pandas as pd
 import torch.nn as nn
 from torchvision.datasets.folder import accimage_loader, pil_loader
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-from model import BilinearModel
-from trainer import Trainer, run_epochs_for_loop
+from BCNN.model import BilinearModel
+from BCNN.trainer import Trainer, run_epochs_for_loop
 import os
 from torchvision import transforms
 
 
-data_dir = "./AI研习社_鸟类识别比赛数据集"
+data_dir = "../AI研习社_鸟类识别比赛数据集"
 selection = ["train_set", "val_set"]
 # pretrained_data_dir = "./imagenet_class_index.json"
 train_labels = os.path.join(data_dir, "train_pname_to_index.csv")

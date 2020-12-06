@@ -35,14 +35,6 @@ class BilinearModel(nn.Module):
         # outputs = self.softmax(outputs)
         return outputs
 
-    def save(self, path):
-        # 只保存模型的实例变量
-        if torch.__version__ == "1.6.0":
-            torch.save(self.state_dict(), path, _use_new_zipfile_serialization=False)
-        else:
-            torch.save(self.state_dict(), path)
-        print("Save OK")
-
     def load(self, path, complexity=False):
         # 加载模型
         if not complexity:

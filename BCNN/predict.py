@@ -1,12 +1,12 @@
-from model import BilinearModel
-from trainer import Trainer
+from BCNN.model import BilinearModel
+from BCNN.trainer import Trainer
 from torchvision import transforms
 import torch
 import torch.nn as nn
 import os
 import torchvision
 import csv
-from main import data_dir
+from BCNN.main import data_dir
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
