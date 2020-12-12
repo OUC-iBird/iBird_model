@@ -18,17 +18,9 @@ class EfficientNetWithAttention(nn.Module):
 
     def forward(self, x):
         x = self.eff_model.extract_features(x)
-        # 这里出现了点问题, 第一层加不上上去
-        # 第一层加入 Attention 机制
-        # x = self.ca(x) * x
-        # x = self.sa(x) * x
-
-        # x = self.layers(x)
-
         # 最后一层加入 Attention 机制
         x = self.ca_tail(x) * x
         x = self.sa(x) * x
-
         x = self._avg_pooling(x)
         if self.eff_model._global_params.include_top:
             x = x.flatten(start_dim=1)
@@ -36,3 +28,33 @@ class EfficientNetWithAttention(nn.Module):
             x = self.fc(x)
         return x
 
+
+"""
+x = self._swish(self._bn0(self._conv_stem(x)))
+        
+        # 第一层加入 Attention 机制?
+        x = self.ca_head(x)*x
+        x = self.sa(x) * x
+        # Blocks
+        for idx, block in enumerate(self._blocks):
+            drop_connect_rate = self._global_params.drop_connect_rate
+            if drop_connect_rate:
+                drop_connect_rate *= float(idx) / len(self._blocks) # scale drop connect_rate
+            x = block(x, drop_connect_rate=drop_connect_rate)
+
+        # Head
+        x = self._swish(self._bn1(self._conv_head(x)))
+
+        
+        # 最后一层加入 Attention 机制
+        x = self.ca_tail(x) * x
+        x = self.sa(x) * x
+        # Pooling and final linear layer
+        x = self._avg_pooling(x)
+        
+        if self._global_params.include_top:
+            x = x.flatten(start_dim=1)
+            x = self._dropout(x)
+            x = self.fc(x)
+        return x
+"""

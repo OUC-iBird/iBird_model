@@ -87,9 +87,10 @@ def run_epochs_for_loop(
         epochs: int,
         train_loader: DataLoader,
         test_loader: DataLoader,
-        scheduler: ReduceLROnPlateau = None):
+        scheduler: ReduceLROnPlateau=None,
+        best=0):
     # Run train + evaluation loop for specified epochs.
-    best = 0
+    best = best
     for epoch in range(epochs):
         (train_loss, train_acc) = trainer.train(train_loader)
         (test_loss, test_acc) = trainer.test(test_loader)
@@ -101,6 +102,7 @@ def run_epochs_for_loop(
             scheduler.step(test_acc)
         # 保存训练的结果
         if test_acc > best:
+            best = test_acc
             save_checkpoint(trainer, epoch, test_acc, "../result")
 
 

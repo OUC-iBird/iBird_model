@@ -107,9 +107,6 @@ if __name__ == '__main__':
                 num_workers=0
             ),
     }
-    # model = EfficientNet.from_pretrained("efficientnet-b7")
-    # in_features = model.fc.in_features
-    # model.fc = torch.nn.Linear(in_features, 200)
     model = EfficientNetWithAttention()
     criterion = nn.CrossEntropyLoss()
     model.to(device)

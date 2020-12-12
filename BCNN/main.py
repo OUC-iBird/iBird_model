@@ -143,7 +143,6 @@ if __name__ == '__main__':
                         data_loader["train"],
                         data_loader["valid"],
                         reduceLROnPlateau)
-    exit(0)
     for param in model.features.parameters():
         param.requires_grad = True
     optimizer_sgd = torch.optim.Adam(model.parameters(), lr=lr)
