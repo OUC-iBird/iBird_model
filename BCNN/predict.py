@@ -1,14 +1,14 @@
-from BCNN.model import BilinearModel
-from BCNN.trainer import Trainer
+from BCNN.VGGBiliner import BilinearModel
+from Utils.trainer import Trainer
 from torchvision import transforms
 import torch
 import torch.nn as nn
 import os
 import torchvision
 import csv
-from BCNN.main import data_dir
 
 
+data_dir = "../AI研习社_鸟类识别比赛数据集"
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print("Using gpu: %s" % torch.cuda.is_available())
 model = BilinearModel(num_classes=200)

@@ -1,3 +1,5 @@
+"""Trainer class to abstract rudimentary training loop."""
+
 from typing import Tuple
 
 import torch
@@ -6,11 +8,10 @@ from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-import os
 
 
-class Trainer:
-    """Trainer class to abstract rudimentary training loop."""
+
+class Trainer(object):
 
     def __init__(
             self,
@@ -87,10 +88,10 @@ def run_epochs_for_loop(
         epochs: int,
         train_loader: DataLoader,
         test_loader: DataLoader,
-        scheduler: ReduceLROnPlateau=None,
-        best=0):
+        scheduler_t: bool = False,
+        scheduler=None):
     # Run train + evaluation loop for specified epochs.
-    best = best
+    best = 0
     for epoch in range(epochs):
         (train_loss, train_acc) = trainer.train(train_loader)
         (test_loss, test_acc) = trainer.test(test_loader)
@@ -99,16 +100,18 @@ def run_epochs_for_loop(
         print("Epoch %d: TestLoss %f \t TestAcc %f" % (epoch+1, test_loss, test_acc))
         # 动态更新学习率
         if scheduler is not None:
-            scheduler.step(test_acc)
+            if scheduler_t:
+                scheduler.step()
+            else:
+                scheduler.step(test_acc)
         # 保存训练的结果
         if test_acc > best:
-            best = test_acc
-            save_checkpoint(trainer, epoch, test_acc, "../result")
+            save_checkpoint(trainer, epoch, test_acc)
 
 
-def save_checkpoint(trainer: Trainer, epoch: int, accuracy: float, path: str):
+def save_checkpoint(trainer: Trainer, epoch: int, accuracy: float):
     # 保存训练结果
-    path = os.path.join(path, "checkpoint.pt")
+    path = "./checkpoint.pt"
     checkpoint = {
         "model": trainer.model.state_dict(),
         "optimizer": trainer.optimizer.state_dict(),
@@ -116,11 +119,3 @@ def save_checkpoint(trainer: Trainer, epoch: int, accuracy: float, path: str):
         "accuracy": accuracy,
     }
     torch.save(checkpoint, path)
-
-
-def save_model(model, path):
-    # 只保存模型的实例变量
-    if torch.__version__ >= "1.6.0":
-        torch.save(model.state_dict(), path, _use_new_zipfile_serialization=False)
-    else:
-        torch.save(model.state_dict(), path)

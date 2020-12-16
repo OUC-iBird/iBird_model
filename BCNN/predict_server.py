@@ -1,19 +1,19 @@
 import threading
-import torch
-import pandas as pd
-import torch.nn as nn
-
 from typing import List
-from torchvision import transforms
-from torchvision import get_image_backend
-from torchvision.datasets.folder import accimage_loader, pil_loader
 
-from BCNN.model import BilinearModel
+import pandas as pd
+import torch
+import torch.nn as nn
+from torchvision import get_image_backend
+from torchvision import transforms
+from torchvision.datasets.folder import accimage_loader, pil_loader
 
 
 # 用于在服务器上运行 BCNN 模型做鸟类的预测代码
 # 实现了一个单例模式的预测类
 # 对应只含参数的模型文件的读取
+from BCNN.VGGBiliner import BilinearModel
+
 
 class NeuralNetwork:
     _instance_lock = threading.Lock()
