@@ -47,13 +47,9 @@
 
 模型训练的数据将会被放在 result 目录的 checkpoint.pt 里，可以使用 model 的方法进行读取
 
-ps: 自己用的所以写的很烂
 
 ### 后端程序执行
 
-ps: 要给队友用所以要好好写，这个分类翻译要整死我了
-
-不确定的: 36, 61, 113, 122, 145, 150
 
 1. 将 model.py, predict_server.py, bird_classes.csv 和计算好保存好的模型文件 model.pth 拷贝到服务器上
 2. 在后端代码中添加初始化代码
@@ -70,7 +66,7 @@ result = net.predicted("xx/xx/xx")
 # your code here
 ```
 
-## 使用 trick
+## 使用 tricks
 
 ### 数据增强
 
@@ -102,5 +98,3 @@ transforms.ColorJitter(contrast=1)  # 对比度
 transforms.ColorJitter(saturation=0.5)  # 饱和度
 transforms.ColorJitter(hue=0.5)  # 色度
 ```
-
-### PCAJittering
